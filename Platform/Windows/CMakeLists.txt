@@ -1,0 +1,4 @@
+add_executable(VulkanApplication VulkanApplication.cpp)
+target_link_libraries(VulkanApplication INTERFACE
+Framework
+)
