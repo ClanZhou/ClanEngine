@@ -4,5 +4,6 @@ add_library(Manager
 
 target_link_libraries(Manager
     PUBLIC
-        glfw
+        Third
 )
+

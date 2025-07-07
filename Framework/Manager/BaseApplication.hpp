@@ -51,8 +51,8 @@ public:
 	[[nodiscard]] int GetCommandLineArgumentsCount() const override { return m_nArgC; };
 	[[nodiscard]] const char* GetCommandLineArgument(int index) const override;
 
-	[[nodiscard]] bool IsQuit() const override { return m_bQuit; };
-	void RequestQuit() override { m_bQuit = true; }
+        [[nodiscard]] bool IsQuit() const override;
+        void RequestQuit() override { m_bQuit = true; }
 
 	[[nodiscard]] const ApplicationConfiguration& GetConfiguration() const { return m_Config; }
 

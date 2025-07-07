@@ -23,12 +23,13 @@ int BaseApplication::Initialize() {
     return ret;
 }
 
-void BaseApplication::Tick() 
+void BaseApplication::Tick()
 {
     for (auto& module : m_RuntimeModules)
     {
         module->Tick();
     }
+    glfwPollEvents();
 }
 
 void BaseApplication::Finalize()
@@ -86,4 +87,10 @@ void* BaseApplication::GetMainWindowHandler()
     return m_pWindow;
 }
 
+bool BaseApplication::IsQuit() const
+{
+    return m_bQuit || !m_pWindow || glfwWindowShouldClose(m_pWindow);
 }
+
+}
+

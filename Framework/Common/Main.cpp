@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "IApplication.hpp"
-#include <GLFW/glfw3.h>
 
 namespace clan
 {
@@ -12,8 +11,9 @@ int main(int argc, char** argv)
 {
 	using clan::g_pApp;
 	
-	g_pApp->SetCommandLineParameters(argc, argv);
+        g_pApp->SetCommandLineParameters(argc, argv);
 
+        g_pApp->CreateMainWindow();
         g_pApp->RegisterAllRuntimeModules();
 
         if (int ret = g_pApp->Initialize(); ret != 0)
@@ -22,13 +22,9 @@ int main(int argc, char** argv)
                 return ret;
         }
 
-        g_pApp->CreateMainWindow();
-        auto* window = static_cast<GLFWwindow*>(g_pApp->GetMainWindowHandler());
-
-        while (!g_pApp->IsQuit() && window && !glfwWindowShouldClose(window))
+        while (!g_pApp->IsQuit())
         {
                 g_pApp->Tick();
-                glfwPollEvents();
         }
 
 	g_pApp->Finalize();
