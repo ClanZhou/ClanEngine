@@ -6,4 +6,6 @@ add_library(Framework INTERFACE)
 target_link_libraries(Framework INTERFACE
     Common
     Manager
+    Third
 )
+

@@ -8,6 +8,9 @@ include_directories("${PROJECT_SOURCE_DIR}/Framework/Interface")
 include_directories("${PROJECT_SOURCE_DIR}/RHI")
 include_directories("${PROJECT_SOURCE_DIR}/Platform")
 
+add_subdirectory(Third)
+
 add_subdirectory(Framework)
 add_subdirectory(Platform)
 add_subdirectory(RHI)
+

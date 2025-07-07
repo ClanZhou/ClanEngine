@@ -1,4 +1,5 @@
 #include <cassert>
+#include <GLFW/glfw3.h>
 
 #include "BaseApplication.hpp"
 
@@ -22,12 +23,13 @@ int BaseApplication::Initialize() {
     return ret;
 }
 
-void BaseApplication::Tick() 
+void BaseApplication::Tick()
 {
     for (auto& module : m_RuntimeModules)
     {
         module->Tick();
     }
+    glfwPollEvents();
 }
 
 void BaseApplication::Finalize()
@@ -36,6 +38,13 @@ void BaseApplication::Finalize()
     {
         module->Finalize();
     }
+
+    if (m_pWindow)
+    {
+        glfwDestroyWindow(m_pWindow);
+        m_pWindow = nullptr;
+    }
+    glfwTerminate();
 }
 
 void BaseApplication::SetCommandLineParameters(int argc, char** argv) 
@@ -55,4 +64,33 @@ void BaseApplication::RegisterAllRuntimeModules()
 
 }
 
+void BaseApplication::CreateMainWindow()
+{
+    if (!glfwInit())
+    {
+        std::cerr << "Failed to initialize GLFW!\n";
+        return;
+    }
+
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    m_pWindow = glfwCreateWindow(m_Config.screenWidth, m_Config.screenHeight,
+                                m_Config.appName.c_str(), nullptr, nullptr);
+    if (!m_pWindow)
+    {
+        std::cerr << "Failed to create GLFW window!\n";
+        glfwTerminate();
+    }
 }
+
+void* BaseApplication::GetMainWindowHandler()
+{
+    return m_pWindow;
+}
+
+bool BaseApplication::IsQuit() const
+{
+    return m_bQuit || !m_pWindow || glfwWindowShouldClose(m_pWindow);
+}
+
+}
+

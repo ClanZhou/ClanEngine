@@ -8,6 +8,8 @@
 #include "IApplication.hpp"
 #include "IRuntimeModule.hpp"
 
+struct GLFWwindow;
+
 namespace clan
 {
 
@@ -49,13 +51,13 @@ public:
 	[[nodiscard]] int GetCommandLineArgumentsCount() const override { return m_nArgC; };
 	[[nodiscard]] const char* GetCommandLineArgument(int index) const override;
 
-	[[nodiscard]] bool IsQuit() const override { return m_bQuit; };
-	void RequestQuit() override { m_bQuit = true; }
+        [[nodiscard]] bool IsQuit() const override;
+        void RequestQuit() override { m_bQuit = true; }
 
 	[[nodiscard]] const ApplicationConfiguration& GetConfiguration() const { return m_Config; }
 
-	void CreateMainWindow() override { }
-	void* GetMainWindowHandler() override { return nullptr; }
+        void CreateMainWindow() override;
+        void* GetMainWindowHandler() override;
 
 	void GetFramebufferSize(uint32_t& width, uint32_t& height) override { }
 
@@ -69,7 +71,8 @@ protected:
 	char** m_ppArgV{ nullptr };
 
 private:
-	std::vector<std::unique_ptr<IRuntimeModule>> m_RuntimeModules{};
+        std::vector<std::unique_ptr<IRuntimeModule>> m_RuntimeModules{};
+        GLFWwindow* m_pWindow{ nullptr };
 };
 
 }
