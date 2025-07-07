@@ -11,25 +11,24 @@ int main(int argc, char** argv)
 {
 	using clan::g_pApp;
 	
-        g_pApp->SetCommandLineParameters(argc, argv);
+    g_pApp->SetCommandLineParameters(argc, argv);
 
-        g_pApp->CreateMainWindow();
-        g_pApp->RegisterAllRuntimeModules();
+    g_pApp->CreateMainWindow();
 
-        if (int ret = g_pApp->Initialize(); ret != 0)
-        {
-                std::cerr << "App Initialize Failed! \n";
-                return ret;
-        }
+    g_pApp->RegisterAllRuntimeModules();
 
-        while (!g_pApp->IsQuit())
-        {
-                g_pApp->Tick();
-        }
+    if (int ret = g_pApp->Initialize(); ret != 0)
+    {
+        std::cerr << "App Initialize Failed! \n";
+        return ret;
+    }
+
+    while (!g_pApp->IsQuit())
+    {
+        g_pApp->Tick();
+    }
 
 	g_pApp->Finalize();
-
-	delete g_pApp;
 
 	return 0;
 }

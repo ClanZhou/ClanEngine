@@ -6,7 +6,8 @@
 namespace clan
 {
 
-int BaseApplication::Initialize() {
+int BaseApplication::Initialize() 
+{
     int ret = 0;
 
     std::cout << m_Config;

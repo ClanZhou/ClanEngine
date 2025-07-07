@@ -3,6 +3,8 @@
 namespace clan
 {
 
-IApplication* g_pApp = new BaseApplication();
+BaseApplication app;
+
+IApplication* g_pApp = &app;
 
 }
